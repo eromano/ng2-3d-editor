@@ -17,6 +17,12 @@ export class Viewer3DComponent {
     @Input()
     urlFile: string;
 
+    @Input()
+    initialPositionCamera: any;
+
+    @Input()
+    initialRotationCamera: any;
+
     inGenerate: boolean = false;
     viewer: any;
 
@@ -55,7 +61,7 @@ export class Viewer3DComponent {
 
         this.axisHelper();
 
-        this.loadObj();
+        this.load();
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -87,36 +93,54 @@ export class Viewer3DComponent {
         this.scene.add(line);
     }
 
-    loadObj() {
+    load() {
         let mtlLoader = new MtlLoaderService();
 
         this.setDetailLoad('MATERIALS');
 
-        mtlLoader.load(this.urlFile.replace('obj', 'mtl'), (materials) => {
-            let objLoader = new ObjLoaderService();
-
-            if (materials) {
-                materials.preload();
-                objLoader.setMaterials(materials);
-            }
-
-            this.setDetailLoad('OBJECTS');
-
-            objLoader.load(this.urlFile, (object) => {
-                this.loading = false;
-                object.position.y = -95;
-                this.scene.add(object);
-            }, (progress) => {
-                console.log('progress obj loader' + JSON.stringify(progress));
-            }, (error) => {
-                console.log('error' + error);
-            });
-
+        mtlLoader.load(this.urlFile.replace('.obj', '.mtl'), (materials) => {
+            this.loadObj(materials);
         }, (progress) => {
             console.log('progress material loader' + JSON.stringify(progress));
         }, (error) => {
             console.log('error material loader' + error);
+            this.loadObj(null);
         });
+    }
+
+    loadObj(materials: any) {
+        let objLoader = new ObjLoaderService();
+
+        if (materials) {
+            materials.preload();
+            objLoader.setMaterials(materials);
+        }
+
+        this.setDetailLoad('OBJECTS');
+
+        objLoader.load(this.urlFile, (object) => {
+            this.loading = false;
+            this.scene.add(object);
+
+            this.cameraPositioning();
+
+        }, (progress) => {
+            console.log('progress obj loader' + JSON.stringify(progress));
+        }, (error) => {
+            console.log('error' + error);
+        });
+    }
+
+    cameraPositioning() {
+        if (this.initialPositionCamera) {
+            this.camera.position.set(this.initialPositionCamera.x, this.initialPositionCamera.y, this.initialPositionCamera.z);
+        }
+
+        if (this.initialRotationCamera) {
+            this.camera.rotation.set(this.initialRotationCamera.x, this.initialRotationCamera.y, this.initialRotationCamera.z);
+        }
+
+        this.camera.lookAt(this.scene);
     }
 
     private setDetailLoad(detail) {

@@ -43,7 +43,9 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 Attribute     | Options     | Default      | Description | Mandatory
 ---           | ---         | ---          | ---         | ---
-`urlFile`         | *string*    |        |  If you want laod an external file that not comes from the ECM you can use this Url where to load the file | 
+`urlFile`         | *string*    |        |  Url 3D file to load | 
+`initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object {x:xvalue , y:yvalue , z:zvalue}| 
+`initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object {x:xvalue , y:yvalue , z:zvalue}| 
 
 #### Supported file formats
 
