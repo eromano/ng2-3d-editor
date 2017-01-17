@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { Viewer3DComponent } from './src/componets/viewer3D.component';
+import { CommonModule } from '@angular/common';
 
 export * from './src/componets/viewer3D.component';
 
@@ -9,6 +10,9 @@ export const VIEWER_DIRECTIVES: any[] = [
 ];
 
 @NgModule({
+    imports: [
+        CommonModule
+    ],
     declarations: [
         ...VIEWER_DIRECTIVES
     ],

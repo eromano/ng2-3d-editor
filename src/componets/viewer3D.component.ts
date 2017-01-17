@@ -17,9 +17,6 @@ export class Viewer3DComponent {
     @Input()
     urlFile: string;
 
-    @Input()
-    nameFile: string;
-
     inGenerate: boolean = false;
     viewer: any;
 
