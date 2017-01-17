@@ -3,6 +3,7 @@ import { ObjLoaderService } from '../services/objLoader.service';
 import { DdsLoaderService } from '../services/ddsLoader.service';
 import { MtlLoaderService } from '../services/mtlLoader.service';
 import { EditorControls } from '../controllers/editorControls';
+
 import * as THREE from 'three';
 
 @Component({
@@ -34,6 +35,9 @@ export class Viewer3DComponent {
     controllers: any;
     dragControls: any;
 
+    loading: boolean = true;
+    detailLoading: string;
+
     ngOnInit() {
         this.container = document.getElementById('viewer-3d');
 
@@ -52,6 +56,8 @@ export class Viewer3DComponent {
 
         this.grid();
 
+        this.axisHelper();
+
         this.loadObj();
 
         this.renderer = new THREE.WebGLRenderer();
@@ -63,6 +69,11 @@ export class Viewer3DComponent {
 
         this.controllers = new EditorControls(this.container, this.camera);
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
+    }
+
+    axisHelper() {
+        let axisHelper = new THREE.AxisHelper(5);
+        this.scene.add(axisHelper);
     }
 
     grid() {
@@ -81,6 +92,9 @@ export class Viewer3DComponent {
 
     loadObj() {
         let mtlLoader = new MtlLoaderService();
+
+        this.setDetailLoad('MATERIALS');
+
         mtlLoader.load(this.urlFile.replace('obj', 'mtl'), (materials) => {
             let objLoader = new ObjLoaderService();
 
@@ -89,7 +103,10 @@ export class Viewer3DComponent {
                 objLoader.setMaterials(materials);
             }
 
+            this.setDetailLoad('OBJECTS');
+
             objLoader.load(this.urlFile, (object) => {
+                this.loading = false;
                 object.position.y = -95;
                 this.scene.add(object);
             }, (progress) => {
@@ -105,6 +122,10 @@ export class Viewer3DComponent {
         });
     }
 
+    private setDetailLoad(detail) {
+        this.detailLoading = detail;
+    };
+
     animate() {
         requestAnimationFrame(this.animate.bind(this));
         this.render();
@@ -119,10 +140,10 @@ export class Viewer3DComponent {
     }
 
     render() {
-      //  this.camera.position.x += ( this.mouseX - this.camera.position.x ) * .05;
-       // this.camera.position.y += ( -this.mouseY - this.camera.position.y ) * .05;
-       // this.camera.lookAt(this.scene.position);
         this.renderer.render(this.scene, this.camera);
     }
 
+    isLoading() {
+        return this.loading;
+    }
 }

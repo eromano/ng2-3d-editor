@@ -1,8 +1,17 @@
+
+<div class="loader-container"  *ngIf="isLoading()" >
+    <div class="loader">
+        <h1>LOADING {{detailLoading}}</h1>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
 <div class="viewer-3d-content">
-        <div class="viewer-3d-row">
-            <div class="viewer-3d-cell">
-                <div id="viewer-3d" class="viewer-3d">
-                </div>
+    <div class="viewer-3d-row">
+        <div class="viewer-3d-cell">
+            <div id="viewer-3d" class="viewer-3d">
             </div>
         </div>
+    </div>
 </div>
