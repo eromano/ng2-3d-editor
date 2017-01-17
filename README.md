@@ -1,5 +1,7 @@
 # 3D File Editor Component for Angular 2
 
+![DataTable demo](assets/ScreenShot1.png)
+
 #### Basic usage with urlFile
 
 ```html
