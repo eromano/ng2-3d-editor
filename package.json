@@ -1,7 +1,7 @@
 {
   "name": "ng2-3d-editor",
   "description": "Angular 2 3D Editor/viewer",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Eugenio Romano",
   "scripts": {
     "clean": "npm install rimraf && npm run clean-build && rimraf dist node_modules typings",
@@ -16,7 +16,7 @@
     "test-browser": "npm run build && concurrently \"karma start karma.conf.js --reporters kjhtml\" \"npm run watch-task\"",
     "posttest": "remap-istanbul -i coverage/report/coverage-final.json -o coverage/report -t html && remap-istanbul -i coverage/report/coverage-final.json -o coverage/report/coverage-final.json",
     "coverage": "npm run test && wsrv -o -p 9875 ./coverage/report",
-    "prepublish": "npm run test",
+    "prepublish": "npm run build",
     "gulp": "gulp",
     "build.umd": "gulp build.prod --color --env-config prod --build-type prod",
     "reinstall": "npm cache clean && npm install"
@@ -31,7 +31,7 @@
   "contributors": [
     {
       "name": "Eugenio Romano",
-      "email": "eugenio.romano@alfresco.com"
+      "email": "eugenioromanodeveloper@gmail.com"
     }
   ],
   "keywords": [
@@ -39,7 +39,11 @@
     "angular",
     "angular2",
     "viewer",
-    "3d"
+    "3d",
+    "three",
+    "javascript",
+    "obj",
+    "3ds"
   ],
   "dependencies": {
     "@angular/router": "3.0.0",

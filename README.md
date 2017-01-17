@@ -2,10 +2,10 @@
 
 ![DataTable demo](assets/ScreenShot1.png)
 
-#### Basic usage with urlFile
+#### Basic usage 
 
 ```html
-<threed-viewer  [overlayMode]="true" [urlFile]="'filename.pdf'"></threed-viewer>
+<threed-viewer   [urlFile]="'filename.pdf'"></threed-viewer>
 ```
 
 Example of an App that declares the file viewer component :
@@ -18,7 +18,7 @@ import { Editor3DComponent } from 'ng2-3d-editor';
 
 @Component({
     selector: 'app-demo',
-    template: `<threed-viewer  [showViewer]="true" [overlayMode]="true" [urlFile]="'localTestFile.obj'">
+    template: `<threed-viewer [urlFile]="'localTestFile.obj'">
                </threed-viewer >`
 })
 class MyDemoApp {
@@ -43,10 +43,7 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 Attribute     | Options     | Default      | Description | Mandatory
 ---           | ---         | ---          | ---         | ---
-`fileNodeId`         | *string*    |        |  node Id of the file to load the file | 
 `urlFile`         | *string*    |        |  If you want laod an external file that not comes from the ECM you can use this Url where to load the file | 
-`overlayMode`         | *boolean*    | `false`        | if true Show the Viewer full page over the present content otherwise will fit the parent div  |
-`showViewer`         | *boolean*    | `true`        | Hide or show the viewer |
 
 #### Supported file formats
 
