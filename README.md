@@ -1,40 +1,47 @@
 # 3D File Editor Component for Angular 2
 
-![DataTable demo](assets/ScreenShot1.png)
+![3D editor demo](assets/ScreenShot1.png)
 
 #### Basic usage 
 
 ```html
-<threed-viewer   [urlFile]="'filename.pdf'"></threed-viewer>
+<threed-viewer [urlFile]="'filename.obj'"></threed-viewer>
 ```
+
+[Live Demo](https://plnkr.co/edit/I4lIyA?p=preview)
 
 Example of an App that declares the file viewer component :
 
 ```ts
-import { NgModule, Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Editor3DComponent } from 'ng2-3d-editor';
+ import { Component, NgModule } from '@angular/core';
+ import { BrowserModule } from '@angular/platform-browser';
+ import { Editor3DModule } from 'ng2-3d-editor';
+ import { CommonModule } from '@angular/common';
+ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-@Component({
-    selector: 'app-demo',
-    template: `<threed-viewer [urlFile]="'localTestFile.obj'">
-               </threed-viewer >`
-})
-class MyDemoApp {
-
-}
-
-@NgModule({
-    imports: [
-        BrowserModule,
-        CoreModule.forRoot(),
-        ViewerModule.forRoot()
-    ],
-    declarations: [ MyDemoApp ],
-    bootstrap:    [ MyDemoApp ]
-})
-export class AppModule { }
+ @Component({
+   selector: 'my-app',
+   template: `
+      <threed-viewer [urlFile]="'https://cdn.rawgit.com/eromano/ng2-3d-editor/master/examples/obj/car/car.obj'" ></threed-viewer>
+   `,
+ })
+ export class App {
+  
+   constructor() {
+     console.log('start');
+   }
+ }
+ 
+ @NgModule({
+   imports: [
+     CommonModule,
+     BrowserModule,
+     Editor3DModule.forRoot()
+   ],
+   declarations: [ App ],
+   bootstrap: [ App ]
+ })
+ export class AppModule {}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```

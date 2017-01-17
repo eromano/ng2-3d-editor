@@ -36,7 +36,7 @@ export class Viewer3DComponent {
     windowHalfY: any;
     windowHalfX: any;
     controllers: any;
-    dragControls: any;
+    center: any = new THREE.Vector3();
 
     loading: boolean = true;
     detailLoading: string;
@@ -140,7 +140,7 @@ export class Viewer3DComponent {
             this.camera.rotation.set(this.initialRotationCamera.x, this.initialRotationCamera.y, this.initialRotationCamera.z);
         }
 
-        this.camera.lookAt(this.scene);
+        this.camera.lookAt(this.center);
     }
 
     private setDetailLoad(detail) {
