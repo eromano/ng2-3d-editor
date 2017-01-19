@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ObjLoaderService } from '../services/objLoader.service';
-import { DdsLoaderService } from '../services/ddsLoader.service';
-import { MtlLoaderService } from '../services/mtlLoader.service';
 import { EditorControls } from '../controllers/editorControls';
 
 import * as THREE from 'three';
+import * as ObjLoaderService from '../jsservice/objLoader.service';
+import * as MtlLoaderService from '../jsservice/mtlLoader.service';
 
 @Component({
     moduleId: module.id,
@@ -16,6 +15,9 @@ export class Viewer3DComponent {
 
     @Input()
     urlFile: string;
+
+    @Input()
+    clearColor: string;
 
     @Input()
     initialPositionCamera: any;
@@ -42,6 +44,8 @@ export class Viewer3DComponent {
     detailLoading: string;
 
     ngOnInit() {
+        console.log(ObjLoaderService);
+        console.log(MtlLoaderService);
         this.container = document.getElementById('viewer-3d');
 
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
@@ -49,13 +53,7 @@ export class Viewer3DComponent {
         // scene
         this.scene = new THREE.Scene();
 
-        let ambient = new THREE.AmbientLight(0x444444);
-        this.scene.add(ambient);
-        let directionalLight = new THREE.DirectionalLight(0xffeedd);
-        directionalLight.position.set(0, 0, 1).normalize();
-        this.scene.add(directionalLight);
-
-        THREE.Loader.Handlers.add(/\.dds$/i, new DdsLoaderService());
+        this.lights();
 
         this.grid();
 
@@ -66,12 +64,30 @@ export class Viewer3DComponent {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        if (this.clearColor) {
+            this.renderer.setClearColor(this.clearColor);
+        }
+
         this.container.appendChild(this.renderer.domElement);
 
         this.animate();
 
         this.controllers = new EditorControls(this.container, this.camera);
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
+    }
+
+    lights() {
+        let ambient = new THREE.AmbientLight(0x444444);
+
+        let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1).normalize();
+
+        let helper = new THREE.DirectionalLightHelper(directionalLight, 5);
+
+        this.scene.add(ambient);
+        this.scene.add(helper);
+        this.scene.add(directionalLight);
     }
 
     axisHelper() {
@@ -94,7 +110,7 @@ export class Viewer3DComponent {
     }
 
     load() {
-        let mtlLoader = new MtlLoaderService();
+        let mtlLoader = new THREE.MTLLoader();
 
         this.setDetailLoad('MATERIALS');
 
@@ -109,7 +125,7 @@ export class Viewer3DComponent {
     }
 
     loadObj(materials: any) {
-        let objLoader = new ObjLoaderService();
+        let objLoader = new THREE.OBJLoader();
 
         if (materials) {
             materials.preload();

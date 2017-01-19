@@ -31,7 +31,9 @@
         "dist",
         "tools",
         "gulpfile.ts",
-        "gulpfile.d.ts"
+        "gulpfile.d.ts",
+        "./src/jsservice/mtlLoader.service.ts",
+        "./src/jsservice/objLoader.service.ts"
     ],
     "angularCompilerOptions": {
         "strictMetadataEmit": false,
