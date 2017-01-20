@@ -54,8 +54,8 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 Attribute     | Options     | Default      | Description | Mandatory
 ---           | ---         | ---          | ---         | ---
 `urlFile`         | *string*    |        |  Url 3D file to load | 
-`initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object ```ts{x:xvalue , y:yvalue , z:zvalue}```| 
-`initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object ```ts{x:xvalue , y:yvalue , z:zvalue}```| 
+`initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object ``` {x:xvalue , y:yvalue , z:zvalue}```| 
+`initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object ``` {x:xvalue , y:yvalue , z:zvalue}```| 
 `clearColor`         | *Hexadecimal color*    |        |   Sets the clear color | 
 
 #### Supported file formats
