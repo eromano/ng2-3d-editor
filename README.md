@@ -2,6 +2,9 @@
 
 ![3D editor demo](assets/ScreenShot1.png)
 
+#### Install
+$ npm install --save ng2-ed-editor
+
 #### Basic usage 
 
 ```html
@@ -51,8 +54,8 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 Attribute     | Options     | Default      | Description | Mandatory
 ---           | ---         | ---          | ---         | ---
 `urlFile`         | *string*    |        |  Url 3D file to load | 
-`initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object {x:xvalue , y:yvalue , z:zvalue}| 
-`initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object {x:xvalue , y:yvalue , z:zvalue}| 
+`initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object ```ts{x:xvalue , y:yvalue , z:zvalue}```| 
+`initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object ```ts{x:xvalue , y:yvalue , z:zvalue}```| 
 `clearColor`         | *Hexadecimal color*    |        |   Sets the clear color | 
 
 #### Supported file formats
@@ -119,6 +122,7 @@ npm start
 | npm run test-browser | Run unit tests in the browser
 | npm run coverage | Run unit tests and display code coverage report |
 
-## License
+License:
 
-[Apache Version 2.0]
+ng2-3d-editror is shared under the Apache Version 2.0. Please give this the Github repo a ⭐️ .
+
