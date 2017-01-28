@@ -1,0 +1,37 @@
+{
+  "name": "ng2-3d-editor",
+  "description": "Angular 2 3D Demo Editor/viewer",
+  "version": "0.0.6",
+  "author": "Eugenio Romano",
+  "scripts": {
+    "start": "wsrv -s ../demo/ -p 3000 -a 0.0.0.0"
+  },
+  "main": "./index.js",
+  "module": "./index.js",
+  "typings": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eromano/ng2-3d-editor.git"
+  },
+  "contributors": [
+    {
+      "name": "Eugenio Romano",
+      "email": "eugenioromanodeveloper@gmail.com"
+    }
+  ],
+  "keywords": [
+    "ng2",
+    "angular",
+    "angular2",
+    "viewer",
+    "3d",
+    "three",
+    "javascript",
+    "obj",
+    "3ds"
+  ],
+  "dependencies": {
+    "wsrv": "^0.1.5"
+  },
+  "license": "Apache-2.0"
+}
