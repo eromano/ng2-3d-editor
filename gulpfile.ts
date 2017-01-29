@@ -47,7 +47,6 @@ function getInjectableDependency() {
 
     var NPM_DEPENDENCIES = [
         {src: 'three/build/three.js', inject: 'libs'},
-        {src: 'three/examples/js/loaders/OBJLoader.js', inject: 'libs'},
         {src: 'zone.js/dist/zone.js', inject: 'libs'},
         {src: 'core-js/client/shim.min.js', inject: 'shims'},
         {src: 'intl/dist/Intl.min.js', inject: 'shims'},

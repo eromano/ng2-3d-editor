@@ -4,6 +4,7 @@ import { EditorControls } from '../controllers/editorControls';
 import * as THREE from 'three';
 import * as ObjLoaderService from '../jsservice/objLoader.service';
 import * as MtlLoaderService from '../jsservice/mtlLoader.service';
+import * as FBXLoaderService from '../jsservice/fbxLoader2.service';
 
 @Component({
     moduleId: module.id,
@@ -26,10 +27,8 @@ export class Viewer3DComponent {
     initialRotationCamera: any;
 
     inGenerate: boolean = false;
-    viewer: any;
 
     container: any;
-    stats: any;
     camera: any;
     scene: any;
     renderer: any;
@@ -46,6 +45,7 @@ export class Viewer3DComponent {
     ngOnInit() {
         console.log(ObjLoaderService);
         console.log(MtlLoaderService);
+        console.log(FBXLoaderService);
         this.container = document.getElementById('viewer-3d');
 
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
@@ -59,7 +59,13 @@ export class Viewer3DComponent {
 
         this.axisHelper();
 
-        this.load();
+        let extension = this.getFileExtension(this.urlFile);
+
+        if (extension === 'obj') {
+            this.loadObjFormatFile();
+        } else if (extension === 'fbx') {
+            this.loadFbxFormatFile();
+        }
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -109,7 +115,7 @@ export class Viewer3DComponent {
         this.scene.add(line);
     }
 
-    load() {
+    loadObjFormatFile() {
         let mtlLoader = new THREE.MTLLoader();
 
         this.setDetailLoad('MATERIALS');
@@ -124,6 +130,29 @@ export class Viewer3DComponent {
         });
     }
 
+    loadFbxFormatFile() {
+        this.setDetailLoad('FBX OBJECTS');
+
+        let manager = new THREE.LoadingManager();
+        manager.onProgress = function (item, loaded, total) {
+            console.log(item, loaded, total);
+        };
+
+        let loader = new THREE.FBXLoader(manager);
+        loader.load(this.urlFile,  (object) => {
+            this.loading = false;
+
+            object.mixer = new THREE.AnimationMixer(object);
+            let action = object.mixer.clipAction(object.animations[0]);
+            action.play();
+            this.scene.add(object);
+        }, (progress) => {
+            console.log('progress fbx loader' + JSON.stringify(progress));
+        }, (error) => {
+            console.log('error' + error);
+        });
+    }
+
     loadObj(materials: any) {
         let objLoader = new THREE.OBJLoader();
 
@@ -132,7 +161,7 @@ export class Viewer3DComponent {
             objLoader.setMaterials(materials);
         }
 
-        this.setDetailLoad('OBJECTS');
+        this.setDetailLoad('OBJ OBJECTS');
 
         objLoader.load(this.urlFile, (object) => {
             this.loading = false;
@@ -182,5 +211,9 @@ export class Viewer3DComponent {
 
     isLoading() {
         return this.loading;
+    }
+
+    getFileExtension(fileName: string) {
+        return fileName.split('.').pop().toLowerCase();
     }
 }

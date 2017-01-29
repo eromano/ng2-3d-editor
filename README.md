@@ -63,6 +63,7 @@ Attribute     | Options     | Default      | Description | Mandatory
 Type     | extensions     
 ---           | ---         
 3D         | OBJ
+3D         | FBX
 
 
 ## Build from sources

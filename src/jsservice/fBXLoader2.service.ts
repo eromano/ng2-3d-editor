@@ -500,13 +500,10 @@ import * as THREE from 'three';
                  */
                 function parseGeometry( geometryNode, relationships, deformerMap ) {
 
-                    switch ( geometryNode.attrType ) {
-                        case 'Mesh':
-                             parseMeshGeometry( geometryNode, relationships, deformerMap );
-                            break;
-                        case 'NurbsCurve':
-                             parseNurbsGeometry( geometryNode, relationships );
-                            break;
+                    if( geometryNode.attrType === 'Mesh') {
+                      return parseMeshGeometry( geometryNode, relationships, deformerMap);
+                    }else if( geometryNode.attrType === 'NurbsCurve'){
+                        return parseNurbsGeometry( geometryNode, relationships );
                     }
 
                     /**
