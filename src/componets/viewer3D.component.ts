@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import * as ObjLoaderService from '../jsservice/objLoader.service';
 import * as MtlLoaderService from '../jsservice/mtlLoader.service';
 import * as FBXLoaderService from '../jsservice/fbxLoader2.service';
+import * as TransformControls from '../jsservice/transform.controls';
 
 @Component({
     moduleId: module.id,
@@ -26,6 +27,9 @@ export class Viewer3DComponent {
     @Input()
     initialRotationCamera: any;
 
+    @Input()
+    enableTransformController: any = true;
+
     inGenerate: boolean = false;
 
     container: any;
@@ -36,7 +40,8 @@ export class Viewer3DComponent {
     mouseY: number = 0;
     windowHalfY: any;
     windowHalfX: any;
-    controllers: any;
+    controllers: EditorControls;
+    transformControl: any;
     center: any = new THREE.Vector3();
 
     loading: boolean = true;
@@ -46,6 +51,7 @@ export class Viewer3DComponent {
         console.log(ObjLoaderService);
         console.log(MtlLoaderService);
         console.log(FBXLoaderService);
+        console.log(TransformControls);
         this.container = document.getElementById('viewer-3d');
 
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
@@ -79,8 +85,56 @@ export class Viewer3DComponent {
 
         this.animate();
 
+        if (this.enableTransformController) {
+            this.transformControl = new THREE.TransformControls(this.camera, this.renderer.domElement);
+            this.transformControl.addEventListener('change', this.render.bind(this));
+        }
+
         this.controllers = new EditorControls(this.container, this.camera);
+
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
+
+        window.addEventListener('keydown', (event) => {
+            switch (event.keyCode) {
+                case 81: // Q
+                    this.transformControl.setSpace(this.transformControl.space === 'local' ? 'world' : 'local');
+                    break;
+                case 17: // Ctrl
+                    this.transformControl.setTranslationSnap(100);
+                    this.transformControl.setRotationSnap(THREE.Math.degToRad(15));
+                    break;
+                case 87: // W
+                    this.transformControl.setMode('translate');
+                    break;
+                case 69: // E
+                    this.transformControl.setMode('rotate');
+                    break;
+                case 82: // R
+                    this.transformControl.setMode('scale');
+                    break;
+                case 187:
+                case 107: // +, =, num+
+                    this.transformControl.setSize(this.transformControl.size + 0.1);
+                    break;
+                case 189:
+                case 109: // -, _, num-
+                    this.transformControl.setSize(Math.max(this.transformControl.size - 0.1, 0.1));
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        window.addEventListener('keyup', (event) => {
+            switch (event.keyCode) {
+                case 17: // Ctrl
+                    this.transformControl.setTranslationSnap(null);
+                    this.transformControl.setRotationSnap(null);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     lights() {
@@ -139,13 +193,19 @@ export class Viewer3DComponent {
         };
 
         let loader = new THREE.FBXLoader(manager);
-        loader.load(this.urlFile,  (object) => {
+        loader.load(this.urlFile, (object) => {
             this.loading = false;
 
             object.mixer = new THREE.AnimationMixer(object);
             let action = object.mixer.clipAction(object.animations[0]);
             action.play();
             this.scene.add(object);
+
+            if (this.enableTransformController) {
+                this.transformControl.attach(object);
+                this.scene.add(this.transformControl);
+            }
+
         }, (progress) => {
             console.log('progress fbx loader' + JSON.stringify(progress));
         }, (error) => {
@@ -166,6 +226,11 @@ export class Viewer3DComponent {
         objLoader.load(this.urlFile, (object) => {
             this.loading = false;
             this.scene.add(object);
+
+            if (this.enableTransformController) {
+                this.transformControl.attach(object);
+                this.scene.add(this.transformControl);
+            }
 
             this.cameraPositioning();
 
@@ -206,6 +271,9 @@ export class Viewer3DComponent {
     }
 
     render() {
+        if (this.transformControl) {
+            this.transformControl.update();
+        }
         this.renderer.render(this.scene, this.camera);
     }
 

@@ -34,7 +34,8 @@
         "gulpfile.d.ts",
         "./src/jsservice/mtlLoader.service.ts",
         "./src/jsservice/objLoader.service.ts",
-        "./src/jsservice/fbxLoader2.service.ts"
+        "./src/jsservice/fbxLoader2.service.ts",
+        "./src/jsservice/transform.controls.ts"
     ],
     "angularCompilerOptions": {
         "strictMetadataEmit": false,

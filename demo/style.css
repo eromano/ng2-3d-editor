@@ -1,4 +1,9 @@
 /* Styles go here */
 .p-10 {
   padding: 10px;
-} 
+}
+
+.info-tooltip{
+    position: absolute;
+    top: 54px;
+}
