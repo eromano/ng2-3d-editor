@@ -57,6 +57,8 @@ Attribute     | Options     | Default      | Description | Mandatory
 `initialPositionCamera`         | *Object*    |        |   If you want change  the initial camera position pass an object ``` {x:xvalue , y:yvalue , z:zvalue}```| 
 `initialRotationCamera`         | *Object*    |        |   If you want change  the initial camera rotation  pass an object ``` {x:xvalue , y:yvalue , z:zvalue}```| 
 `clearColor`         | *Hexadecimal color*    |        |   Sets the clear color | 
+`enableTransformController`         | *Boolean*    | true       |  enable transform command "W" translate | "E" rotate | "R" scale | "+" increase size | "-" decrease size<br />
+                                                                         Press "Q" to toggle world/local space, keep "Ctrl" down to snap to grid | 
 
 #### Supported file formats
 

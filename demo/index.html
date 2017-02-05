@@ -14,6 +14,13 @@
     <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>
     <script src="https://unpkg.com/reflect-metadata@0.1.8"></script>
     <script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
+
+
+    <!-- Google Material Design Lite -->
+    <link rel="stylesheet" href="https://unpkg.com/material-design-lite/material.min.css">
+    <script src="https://unpkg.com/material-design-lite/material.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/material-design-icons/iconfont/material-icons.css">
+
     <script src="config.js"></script>
     <script>
     System.import('app')
@@ -22,6 +29,12 @@
   </head>
 
   <body>
+  <!-- Multiline Tooltip -->
+  <div id="tt4" class="icon material-icons info-tooltip">info</div>
+  <div class="mdl-tooltip" for="tt4">
+      "W" translate | "E" rotate | "R" scale | "+" increase size | "-" decrease size<br />
+      Press "Q" to toggle world/local space, keep "Ctrl" down to snap to grid
+  </div>
     <my-app>
     loading...
   </my-app>
