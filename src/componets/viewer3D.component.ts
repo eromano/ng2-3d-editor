@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import * as ObjLoaderService from '../jsservice/objLoader.service';
 import * as MtlLoaderService from '../jsservice/mtlLoader.service';
 import * as FBXLoaderService from '../jsservice/fbxLoader2.service';
-import * as TransformControls from '../jsservice/transform.controls';
+let TransformControls = require('three-transformcontrols');
 
 @Component({
     moduleId: module.id,
@@ -86,7 +86,7 @@ export class Viewer3DComponent {
         this.animate();
 
         if (this.enableTransformController) {
-            this.transformControl = new THREE.TransformControls(this.camera, this.renderer.domElement);
+            this.transformControl = new TransformControls(this.camera, this.renderer.domElement);
             this.transformControl.addEventListener('change', this.render.bind(this));
         }
 
