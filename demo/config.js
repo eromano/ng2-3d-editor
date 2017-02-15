@@ -35,8 +35,9 @@ System.config({
     'rxjs': 'npm:rxjs',
     'typescript': 'npm:typescript@2.0.2/lib/typescript.js',
 
-      'ng2-3d-editor': 'npm:ng2-3d-editor@0.0.9',
-    'three': 'npm:three'
+    'ng2-3d-editor': 'npmlocal:ng2-3d-editor',
+    'three': 'npm:three',
+    'three-transformcontrols': 'npm:three-transformcontrols'
   },
   //packages defines our app package
   packages: {
@@ -54,6 +55,10 @@ System.config({
     },
     'three': {
       main: './build/three.js',
+      defaultExtension: 'js'
+    },
+    'three-transformcontrols': {
+      main: './index.js',
       defaultExtension: 'js'
     }
   }

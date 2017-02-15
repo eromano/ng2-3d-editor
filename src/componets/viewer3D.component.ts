@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { EditorControls } from '../controllers/editorControls';
 
-import * as THREE from 'three';
-import * as ObjLoaderService from '../jsservice/objLoader.service';
-import * as MtlLoaderService from '../jsservice/mtlLoader.service';
-import * as FBXLoaderService from '../jsservice/fbxLoader2.service';
-import * as TransformControls from '../jsservice/transform.controls';
+let THREE = require('three');
+let FBXLoaderService = require('../jsservice/fbxLoader2.service.js');
+let TransformControls = require('three-transformcontrols');
+let ObjLoaderService = require('../jsservice/objLoader.service');
+let MtlLoaderService = require('../jsservice/mtlLoader.service');
 
 @Component({
-    moduleId: module.id,
     selector: 'threed-viewer',
     templateUrl: './viewer3D.component.html',
     styleUrls: ['./viewer3D.component.css']
@@ -17,6 +16,9 @@ export class Viewer3DComponent {
 
     @Input()
     urlFile: string;
+
+    @Input()
+    extension: string;
 
     @Input()
     clearColor: string;
@@ -65,11 +67,13 @@ export class Viewer3DComponent {
 
         this.axisHelper();
 
-        let extension = this.getFileExtension(this.urlFile);
+        if (!this.extension) {
+            this.extension = this.getFileExtension(this.urlFile);
+        }
 
-        if (extension === 'obj') {
+        if (this.extension === 'obj') {
             this.loadObjFormatFile();
-        } else if (extension === 'fbx') {
+        } else if (this.extension === 'fbx') {
             this.loadFbxFormatFile();
         }
 
@@ -86,7 +90,7 @@ export class Viewer3DComponent {
         this.animate();
 
         if (this.enableTransformController) {
-            this.transformControl = new THREE.TransformControls(this.camera, this.renderer.domElement);
+            this.transformControl = new TransformControls(this.camera, this.renderer.domElement);
             this.transformControl.addEventListener('change', this.render.bind(this));
         }
 
