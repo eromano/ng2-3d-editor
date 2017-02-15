@@ -1,12 +1,10 @@
 npm-debug.log
 .idea
-demo/localTestFile.pdf
 
 coverage/
 demo/
 node_modules
-typings/
-fonts/
+
 
 /.editorconfig
 /.travis.yml
@@ -17,3 +15,12 @@ fonts/
 /.npmignore
 
 *.tgz
+
+/examples/
+/assets/
+/src/componets/viewer3D.component.ts
+/src/controllers/editorControls.ts
+/src/jsservice/fbxLoader2.service.ts
+/src/jsservice/mtlLoader.service.ts
+/src/jsservice/objLoader.service.ts
+/index.ts

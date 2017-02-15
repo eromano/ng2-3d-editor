@@ -168,7 +168,7 @@ gulp.task('build.bundles.app', (done) => {
             '@angular': 'node_modules/@angular',
             rxjs: 'node_modules/rxjs',
             'three': 'node_modules/three/build/three.min',
-            'three-transformcontrols': 'index'
+            'three-transformcontrols': 'node_modules/three-transformcontrols/index',
         },
         paths: {
             '*': '*.js'
