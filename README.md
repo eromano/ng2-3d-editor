@@ -3,7 +3,7 @@
 ![3D editor demo](assets/ScreenShot1.png)
 
 #### Install
-$ npm install --save ng2-ed-editor
+$ npm install --save ng2-3d-editor
 
 #### Basic usage 
 
