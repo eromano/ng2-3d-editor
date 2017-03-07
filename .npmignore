@@ -18,7 +18,7 @@ node_modules
 
 /examples/
 /assets/
-/src/componets/viewer3D.component.ts
+/src/components/viewer3D.component.ts
 /src/controllers/editorControls.ts
 /src/jsservice/fbxLoader2.service.ts
 /src/jsservice/mtlLoader.service.ts
