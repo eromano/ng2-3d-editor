@@ -1,7 +1,7 @@
 {
   "name": "ng2-3d-editor",
   "description": "Angular 2 3D Editor/viewer",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "author": "Eugenio Romano",
   "scripts": {
     "clean": "npm install rimraf && npm run clean-build && rimraf dist node_modules typings",
@@ -62,8 +62,6 @@
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.27",
     "three": "^0.83.0",
-    "three-mtl-loader": "^1.0.1",
-    "three-obj-loader": "^1.0.2",
     "three-transformcontrols": "^0.78.1",
     "zone.js": "^0.6.23"
   },

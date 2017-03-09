@@ -48,7 +48,6 @@ System.config({
     rxjs: {
       defaultExtension: 'js'
     },
-
     'ng2-3d-editor': {
       main: './index.js',
       defaultExtension: 'js'

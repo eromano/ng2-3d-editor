@@ -49,6 +49,18 @@ export class Viewer3DComponent {
     loading: boolean = true;
     detailLoading: string;
 
+    ngOnChanges(changes) {
+        if (this.scene && changes.urlFile.currentValue !== changes.urlFile.previousValue.toString()) {
+            this.loading = true;
+            this.clearScene();
+            this.lights();
+            this.grid();
+            this.axisHelper();
+            this.load();
+            this.animate();
+        }
+    }
+
     ngOnInit() {
         console.log(ObjLoaderService);
         console.log(MtlLoaderService);
@@ -62,20 +74,9 @@ export class Viewer3DComponent {
         this.scene = new THREE.Scene();
 
         this.lights();
-
         this.grid();
-
         this.axisHelper();
-
-        if (!this.extension) {
-            this.extension = this.getFileExtension(this.urlFile);
-        }
-
-        if (this.extension === 'obj') {
-            this.loadObjFormatFile();
-        } else if (this.extension === 'fbx') {
-            this.loadFbxFormatFile();
-        }
+        this.load();
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -141,6 +142,18 @@ export class Viewer3DComponent {
         });
     }
 
+    load() {
+        if (!this.extension) {
+            this.extension = this.getFileExtension(this.urlFile);
+        }
+
+        if (this.extension === 'obj') {
+            this.loadObjFormatFile();
+        } else if (this.extension === 'fbx') {
+            this.loadFbxFormatFile();
+        }
+    }
+
     lights() {
         let ambient = new THREE.AmbientLight(0x444444);
 
@@ -183,7 +196,7 @@ export class Viewer3DComponent {
         }, (progress) => {
             console.log('progress material loader' + JSON.stringify(progress));
         }, (error) => {
-            console.log('error material loader' + error);
+            console.log('error material loader');
             this.loadObj(null);
         });
     }
@@ -213,6 +226,7 @@ export class Viewer3DComponent {
         }, (progress) => {
             console.log('progress fbx loader' + JSON.stringify(progress));
         }, (error) => {
+            this.setDetailLoad('ERROR loafing FBX file');
             console.log('error' + error);
         });
     }
@@ -241,6 +255,7 @@ export class Viewer3DComponent {
         }, (progress) => {
             console.log('progress obj loader' + JSON.stringify(progress));
         }, (error) => {
+            this.setDetailLoad('ERROR loafing OBJ file' + error);
             console.log('error' + error);
         });
     }
@@ -287,5 +302,12 @@ export class Viewer3DComponent {
 
     getFileExtension(fileName: string) {
         return fileName.split('.').pop().toLowerCase();
+    }
+
+    clearScene() {
+        this.extension = undefined;
+        this.scene.children.forEach((object) => {
+            this.scene.remove(object);
+        });
     }
 }
