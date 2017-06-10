@@ -1,5 +1,7 @@
 # 3D File Editor Component for Angular 2
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/eromano/ng2-3d-editor.svg)](https://greenkeeper.io/)
+
 ![3D editor demo](assets/ScreenShot1.png)
 
 #### Install
