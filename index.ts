@@ -21,9 +21,4 @@ export const VIEWER_DIRECTIVES: any[] = [
     ]
 })
 export class Editor3DModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: Editor3DModule
-        };
-    }
 }

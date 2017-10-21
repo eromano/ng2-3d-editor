@@ -39,7 +39,7 @@ Example of an App that declares the file viewer component :
    imports: [
      CommonModule,
      BrowserModule,
-     Editor3DModule.forRoot()
+     Editor3DModule
    ],
    declarations: [ App ],
    bootstrap: [ App ]
@@ -127,5 +127,5 @@ npm start
 
 License:
 
-ng2-3d-editror is shared under the Apache Version 2.0. Please give this the Github repo a ⭐️ .
+ng2-3d-editor is shared under the Apache Version 2.0. Please give this the Github repo a ⭐️ .
 

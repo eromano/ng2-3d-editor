@@ -31,6 +31,7 @@
     "3ds"
   ],
   "dependencies": {
+    "ng2-3d-editor": "^0.0.17",
     "wsrv": "^0.1.5"
   },
   "license": "Apache-2.0"
